@@ -256,6 +256,32 @@ boolean isErronousCode(){
     return result;
 }
 
+void configureBLE(){
+    // We need to change some settings, first, to make this central mode thing
+    //  work like we want.
+
+    // When ACON is ON, the BC118 will connect to the first BC118 it discovers,
+    //  whether you want it to or not. We'll disable that.
+    blemate.stdSetParam("ACON", "OFF");
+    // When CCON is ON, the BC118 will immediately start doing something after
+    //  it disconnects. In central mode, it immediately starts scanning, and
+    //  in peripheral mode, it immediately starts advertising. We don't want it
+    //  to scan without our permission, so let's disable that.
+    blemate.stdSetParam("CCON", "OFF");
+    // Turn off advertising. You actually need to do this, or the presence of
+    //  the advertising flag can confuse the firmware when the module is in
+    //  central mode.
+    blemate.BLENoAdvertise();
+    // Put the module in central mode.
+    blemate.BLECentral();
+    // Store these changes.
+    blemate.writeConfig();
+    // Reset the module. Write-reset is important here!!!!!!
+    blemate.reset();
+
+    // The module is now configured to connect to another external device.
+}
+
 void waitToConnect(){
     while(!connected)
 }
