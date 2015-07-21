@@ -1,5 +1,4 @@
-// Libraries are here included
-#include <"SparkFunBLEMate2.h">
+#include <SparkFunBLEMate2.h>
 
 // Constant que guardarem
 #define MAXFINGERS          4
@@ -307,13 +306,11 @@ void putInIdleMode(){
 }
 
 void advertiseBLEtoPair(){
-    _serialPort->print("ADV ON\r");
-    _serialPort->flush();
+    blemate.BLEAdvertise();
 }
 
 void isConnected(){
-    BLEMate2::status s = -1;
-    BLEMate2::opResult result = blemate.BLEStatus(s);
-    if(s == 4) connected = true;
+    BLEMate2::opResult result = blemate.isConnected();
+    if(result == BLEMate2::CONNECTED) connected = true;
     else connected = false;
 }
