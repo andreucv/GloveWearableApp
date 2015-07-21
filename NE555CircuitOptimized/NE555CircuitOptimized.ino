@@ -284,7 +284,6 @@ void configureBLE(){
     blemate.writeConfig();
     // Reset the module. Write-reset is important here!!!!!!
     blemate.reset();
-
     // The module is now configured to connect to another external device.
 }
 
@@ -313,4 +312,6 @@ void isConnected(){
     BLEMate2::opResult result = blemate.isConnected();
     if(result == BLEMate2::CONNECTED) connected = true;
     else connected = false;
+
+    Hoolahola
 }
