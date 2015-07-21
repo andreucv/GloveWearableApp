@@ -1,3 +1,6 @@
+// Libraries are here included
+#include <"SparkFunBLEMate2.h">
+
 // Constant que guardarem
 #define MAXFINGERS          4
 #define MAXGESTURES         6
@@ -28,6 +31,7 @@ boolean recognizing = false;
 boolean firstTime = true;
 
 int gestureArray[MAXGESTURES];
+int pairingGesture[] = {212, 200, 212};
 int indexArray = 0;
 
 int clickCycles = 0;
@@ -35,6 +39,7 @@ int clickCycles = 0;
 boolean singleClick = false;
 boolean longClick = false;
 
+BLEMate2 blemate(&Serial);
 boolean connected = false;
 
 boolean debug = true;
@@ -59,7 +64,7 @@ void setup() {
     delay(1000);
     digitalWrite(13, LOW);
     configureBLE();
-    putInIdleMode();
+    //putInIdleMode();
 }
 
 void loop() {
@@ -193,15 +198,16 @@ void arrayRecognitionAdd(int codeToSend){
 
 void sendCommand(){
     if(!isErronousCode()){
-      Serial.print("Sending command...  ->   ");
-      int i = 0;
-      for(i = 0; i < indexArray; i++){
-          Serial.print(gestureArray[i]); Serial.print(" ");
-      }
-      Serial.println(" ");
+    //   Serial.print("Sending command...  ->   ");
+    //   int i = 0;
+    //   for(i = 0; i < indexArray; i++){
+    //       Serial.print(gestureArray[i]); Serial.print(" ");
+    //   }
+    //   Serial.println(" ");
       digitalWrite(13, HIGH);
-    delay(1000);
-    digitalWrite(13, LOW);
+      delay(1000);
+      digitalWrite(13, LOW);
+      if(!connected && gestureAdvertise()) advertiseBLEtoPair();
   }
   else{
       Serial.println("NOT Sending ");
@@ -283,14 +289,31 @@ void configureBLE(){
     // The module is now configured to connect to another external device.
 }
 
+bool gestureAdvertise(){
+    for(int i = 0; i < MAXGESTURES; i++){
+        if(pairingGesture[i] != gestureArray[i]){
+            return false;
+        }
+    }
+    return true;
+}
+
 void putInIdleMode(){
-    blemate.stdSetParam("WLVL", "LOW");
-    blemate.stdSetParam("WAKE", "ON");
-    blemate.stdSetParam("SLEEP", "ON");
-    blemate.writeConfig();
-    blemate.reset();
+//     blemate.stdSetParam("WLVL", "LOW");
+//     blemate.stdSetParam("WAKE", "ON");
+//     blemate.stdSetParam("SLEEP", "ON");
+//     blemate.writeConfig();
+//     blemate.reset();
 }
 
 void advertiseBLEtoPair(){
+    _serialPort->print("ADV ON\r");
+    _serialPort->flush();
+}
 
+void isConnected(){
+    BLEMate2::status s = -1;
+    BLEMate2::opResult result = blemate.BLEStatus(s);
+    if(s == 4) connected = true;
+    else connected = false;
 }
