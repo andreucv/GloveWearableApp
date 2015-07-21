@@ -284,5 +284,13 @@ void configureBLE(){
 }
 
 void putInIdleMode(){
-    while(!connected)
+    blemate.stdSetParam("WLVL", "LOW");
+    blemate.stdSetParam("WAKE", "ON");
+    blemate.stdSetParam("SLEEP", "ON");
+    blemate.writeConfig();
+    blemate.reset();
+}
+
+void advertiseBLEtoPair(){
+
 }
