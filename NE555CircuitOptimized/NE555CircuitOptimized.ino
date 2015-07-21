@@ -312,6 +312,4 @@ void isConnected(){
     BLEMate2::opResult result = blemate.isConnected();
     if(result == BLEMate2::CONNECTED) connected = true;
     else connected = false;
-
-    Hoolahola
 }
