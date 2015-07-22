@@ -274,30 +274,38 @@ boolean isErronousCode(){
 }
 
 void configureBLE(boolean advertise){
-    // We need to change some settings, first, to make this central mode thing
-    //  work like we want.
+    boolean inCentralMode = false;
+    // A word here on amCentral: amCentral's parameter is passed by reference, so
+    //  the answer to the question "am I in central mode" is handed back as the
+    //  value in the boolean passed to it when it is called. The reason for this
+    //  is the allow the user to check the return value and determine if a module
+    //  error occurred: should I trust the answer or is there something larger
+    //  wrong than merely being in the wrong mode?
+    blemate.amCentral(inCentralMode);
+    if (inCentralMode)
+    {
+      blemate.BLEPeripheral();
+      blemate.BLEAdvertise();
+    }
 
-    // When ACON is ON, the BC118 will connect to the first BC118 it discovers,
-    //  whether you want it to or not. We'll disable that.
-    blemate.stdSetParam("ACON", "OFF");
-    // When CCON is ON, the BC118 will immediately start doing something after
-    //  it disconnects. In central mode, it immediately starts scanning, and
-    //  in peripheral mode, it immediately starts advertising. We don't want it
-    //  to scan without our permission, so let's disable that.
-    blemate.stdSetParam("CCON", "OFF");
-    // Turn off advertising. You actually need to do this, or the presence of
-    //  the advertising flag can confuse the firmware when the module is in
-    //  central mode.
-    if(!advertise) blemate.BLENoAdvertise();
-    else blemate.BLEAdvertise();
-    // Put the module in central mode.
-    blemate.BLECentral();
-    // Store these changes.
+    // There are a few more advance settings we'll probably, but not definitely,
+    //  want to tweak before we reset the device.
+
+    // The CCON parameter will enable advertising immediately after a disconnect.
+    blemate.stdSetParam("CCON", "ON");
+    // The ADVP parameter controls the advertising rate. Can be FAST or SLOW.
+    blemate.stdSetParam("ADVP", "FAST");
+    // The ADVT parameter controls the timeout before advertising stops. Can be
+    //  0 (for never) to 4260 (71min); integer value, in seconds.
+    blemate.stdSetParam("ADVT", "0");
+    // The ADDR parameter controls the devices we'll allow to connect to us.
+    //  All zeroes is "anyone".
+    blemate.stdSetParam("ADDR", "000000000000");
+
     blemate.writeConfig();
-    // Reset the module. Write-reset is important here!!!!!!
     blemate.reset();
-    // The module is now configured to connect to another external device.
-    // And stays from now on in Idle Mode.
+
+    // We're set up to allow anything to connect to us now.
 }
 
 bool gestureAdvertise(){
