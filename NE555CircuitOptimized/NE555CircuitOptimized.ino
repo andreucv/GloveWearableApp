@@ -99,6 +99,7 @@ void loop() {
             }
             else{
                 if(gestureAdvertise) advertiseBLEtoPair();
+                checkConnectedBLE();
             }
             // The command to send must be:
             // _|---|_|---|_ coded in an array like
@@ -315,7 +316,7 @@ void advertiseBLEtoPair(){
     blemate.BLEAdvertise();
 }
 
-void isConnected(){
+void checkConnectedBLE(){
     BLEMate2::opResult result = blemate.isConnected();
     if(result == BLEMate2::CONNECTED) connected = true;
     else connected = false;
