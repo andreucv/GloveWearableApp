@@ -285,14 +285,14 @@ void configureBLE(boolean advertise){
     if (inCentralMode)
     {
       blemate.BLEPeripheral();
-      blemate.BLEAdvertise();
+      //blemate.BLEAdvertise();
     }
 
     // There are a few more advance settings we'll probably, but not definitely,
     //  want to tweak before we reset the device.
 
     // The CCON parameter will enable advertising immediately after a disconnect.
-    blemate.stdSetParam("CCON", "ON");
+    blemate.stdSetParam("CCON", "OFF");
     // The ADVP parameter controls the advertising rate. Can be FAST or SLOW...
     blemate.stdSetParam("ADVP", "FAST");
     // The ADVT parameter controls the timeout before advertising stops. Can be
@@ -306,6 +306,15 @@ void configureBLE(boolean advertise){
     blemate.reset();
 
     // We're set up to allow anything to connect to us now.
+}
+
+void startAdvertise(boolean fast, int time){
+    // The ADVP parameter controls the advertising rate. Can be FAST or SLOW...
+    if(fast) blemate.stdSetParam("ADVP", "FAST");
+    else blemate.stdSetParam("ADVP", "SLOW");
+    // The ADVT parameter controls the timeout before advertising stops. Can be
+    //  0 (for never) to 4260 (71min); integer value, in seconds.
+    blemate.stdSetParam("ADVT", ""+time);
 }
 
 bool gestureAdvertise(){
