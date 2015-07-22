@@ -63,7 +63,7 @@ void setup() {
     delay(1000);
     digitalWrite(13, LOW);
     blemate.reset();
-    configureBLE();
+    configureBLE(false);
     //putInIdleMode();
 }
 
@@ -273,7 +273,7 @@ boolean isErronousCode(){
     return result;
 }
 
-void configureBLE(){
+void configureBLE(boolean advertise){
     // We need to change some settings, first, to make this central mode thing
     //  work like we want.
 
@@ -288,7 +288,8 @@ void configureBLE(){
     // Turn off advertising. You actually need to do this, or the presence of
     //  the advertising flag can confuse the firmware when the module is in
     //  central mode.
-    blemate.BLENoAdvertise();
+    if(!advertise) blemate.BLENoAdvertise();
+    else blemate.BLEAdvertise();
     // Put the module in central mode.
     blemate.BLECentral();
     // Store these changes.
@@ -317,9 +318,7 @@ void putInIdleMode(){
 }
 
 void advertiseBLEtoPair(){
-    blemate.BLEAdvertise();
-    blemate.writeConfig();
-    blemate.reset();
+    configureBLE(true);
 }
 
 void checkConnectedBLE(){
