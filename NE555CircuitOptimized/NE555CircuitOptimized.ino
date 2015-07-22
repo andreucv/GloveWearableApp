@@ -326,7 +326,13 @@ void putInIdleMode(){
 }
 
 void advertiseBLEtoPair(){
+<<<<<<< HEAD
     configureBLE(true);
+=======
+    blemate.BLEAdvertise();
+    blemate.writeConfig();
+    blemate.reset();
+>>>>>>> 939cf79e85201fb064a504c85442db75ec8a1f3a
 }
 
 void checkConnectedBLE(){
