@@ -217,7 +217,12 @@ void sendCommand(){
       digitalWrite(13, HIGH);
       delay(1000);
       digitalWrite(13, LOW);
-      if(!connected && gestureAdvertise()) advertiseBLEtoPair();
+
+      String command = "";
+      for(int i = 0; i < MAXGESTURES; i++){
+          command += " " + gestureArray[i];
+      }
+      blemate.sendData(command);
   }
   else{
       Serial.println("NOT Sending ");
