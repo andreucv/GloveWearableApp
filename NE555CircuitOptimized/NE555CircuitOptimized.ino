@@ -30,7 +30,7 @@ boolean recognizing = false;
 boolean firstTime = true;
 
 int gestureArray[MAXGESTURES];
-int pairingGesture[] = {212, 200, 212};
+int pairingGesture[] = {212, 100, 212};
 int indexArray = 0;
 
 int clickCycles = 0;
@@ -56,12 +56,13 @@ void setup() {
     for(i = 0; i < MAXGESTURES; i++){
         gestureArray[i] = 0;
     }
-    Serial.begin(115200);
+    Serial.begin(9600);
     cycleRecognizing = 0;
     recognizing = false;
     digitalWrite(13, HIGH);
     delay(1000);
     digitalWrite(13, LOW);
+    blemate.reset();
     configureBLE();
     //putInIdleMode();
 }
@@ -92,8 +93,13 @@ void loop() {
 
         // CONTROL RECOGNIZE AREA
         if(isTimeToRecognizePast()){
-            sendCommand();
-            resetRecognition();
+            if(connected){
+                sendCommand();
+                resetRecognition();
+            }
+            else{
+                if(gestureAdvertise) advertiseBLEtoPair();
+            }
             // The command to send must be:
             // _|---|_|---|_ coded in an array like
             //  2XX 1XX 2XX
@@ -285,6 +291,7 @@ void configureBLE(){
     // Reset the module. Write-reset is important here!!!!!!
     blemate.reset();
     // The module is now configured to connect to another external device.
+    // And stays from now on in Idle Mode.
 }
 
 bool gestureAdvertise(){
