@@ -336,7 +336,7 @@ void putInIdleMode(){
 }
 
 void advertiseBLEtoPair(){
-    configureBLE(true);
+    blemate.BLEAdvertise();
 }
 
 void checkConnectedBLE(){
