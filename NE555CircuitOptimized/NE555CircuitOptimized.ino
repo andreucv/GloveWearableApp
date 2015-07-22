@@ -315,6 +315,7 @@ void startAdvertise(boolean fast, int time){
     // The ADVT parameter controls the timeout before advertising stops. Can be
     //  0 (for never) to 4260 (71min); integer value, in seconds.
     blemate.stdSetParam("ADVT", ""+time);
+    blemate.writeConfig();
     blemate.BLEAdvertise();
 }
 
@@ -336,7 +337,7 @@ void putInIdleMode(){
 }
 
 void advertiseBLEtoPair(){
-    blemate.BLEAdvertise();
+    startAdvertise(false, 5);
 }
 
 void checkConnectedBLE(){
