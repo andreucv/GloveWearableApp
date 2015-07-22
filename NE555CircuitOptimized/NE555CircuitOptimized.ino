@@ -98,7 +98,11 @@ void loop() {
                 resetRecognition();
             }
             else{
-                if(gestureAdvertise) advertiseBLEtoPair();
+                if(gestureAdvertise){
+                    advertiseBLEtoPair();
+                    debugTimes(5);
+                    resetRecognition();
+                }
                 checkConnectedBLE();
             }
             // The command to send must be:
@@ -314,10 +318,23 @@ void putInIdleMode(){
 
 void advertiseBLEtoPair(){
     blemate.BLEAdvertise();
+    blemate.writeConfig();
+    blemate.reset();
 }
 
 void checkConnectedBLE(){
     BLEMate2::opResult result = blemate.isConnected();
     if(result == BLEMate2::CONNECTED) connected = true;
     else connected = false;
+}
+
+void debugTimes(int times){
+  int i = 0;
+  for(i = 0; i < times; i++){
+    digitalWrite(13, HIGH);
+    delay(300);
+    digitalWrite(13, LOW);
+    delay(300);
+  }
+  delay(1000);
 }
