@@ -42,7 +42,6 @@ BLEMate2 blemate(&Serial);
 boolean connectedBLE = false;
 
 boolean debug = true;
-String command = "";
 
 // Program Config:
 // All pin Inputs for detecting digitalChanges.
@@ -95,13 +94,12 @@ void loop() {
         // CONTROL RECOGNIZE AREA
         if(isTimeToRecognizePast()){
           sendCommand();
-            if(connectedBLE) sendCommand();
-            else{
-                if(gestureAdvertise()){
-                    advertiseBLEtoPair();
-                    debugTimes(5);
-                }
-            }
+            
+          if(gestureAdvertise()){
+              advertiseBLEtoPair();
+              debugTimes(5);
+          }
+          
             checkConnectedBLE();
             resetRecognition();
             // The command to send must be:
@@ -216,7 +214,11 @@ void sendCommand(){
       digitalWrite(13, LOW);
       delay(1000);
 
-      command += "a";
+      String command = "";
+      int i = 0;
+      for(i = 0; i < MAXGESTURES; i++){
+          command += (String(gestureArray[i], DEC) + " ");
+      }
       blemate.sendData(command);
   }
   else{
