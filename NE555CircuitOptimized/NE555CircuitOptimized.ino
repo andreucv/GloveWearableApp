@@ -39,9 +39,10 @@ boolean singleClick = false;
 boolean longClick = false;
 
 BLEMate2 blemate(&Serial);
-boolean connected = false;
+boolean connectedBLE = false;
 
 boolean debug = true;
+String command = "";
 
 // Program Config:
 // All pin Inputs for detecting digitalChanges.
@@ -93,18 +94,16 @@ void loop() {
 
         // CONTROL RECOGNIZE AREA
         if(isTimeToRecognizePast()){
-            if(connected){
-                sendCommand();
-                resetRecognition();
-            }
+          sendCommand();
+            if(connectedBLE) sendCommand();
             else{
-                if(gestureAdvertise){
+                if(gestureAdvertise()){
                     advertiseBLEtoPair();
                     debugTimes(5);
-                    resetRecognition();
                 }
-                checkConnectedBLE();
             }
+            checkConnectedBLE();
+            resetRecognition();
             // The command to send must be:
             // _|---|_|---|_ coded in an array like
             //  2XX 1XX 2XX
@@ -169,8 +168,6 @@ int gestureRecognition(){
         // ADD IT TO THE ARRAY
         if(!firstTime && codeToSend > 0){
             arrayRecognitionAdd(codeToSend);
-            Serial.println("Code To Send");
-            Serial.println(codeToSend);
             resetCounters();
         }
         else firstTime = false;
@@ -217,11 +214,9 @@ void sendCommand(){
       digitalWrite(13, HIGH);
       delay(1000);
       digitalWrite(13, LOW);
+      delay(1000);
 
-      String command = "";
-      for(int i = 0; i < MAXGESTURES; i++){
-          command += " " + gestureArray[i];
-      }
+      command += "a";
       blemate.sendData(command);
   }
   else{
@@ -347,8 +342,13 @@ void advertiseBLEtoPair(){
 
 void checkConnectedBLE(){
     BLEMate2::opResult result = blemate.isConnected();
-    if(result == BLEMate2::CONNECTED) connected = true;
-    else connected = false;
+    if(result == BLEMate2::CONNECTED){
+        connectedBLE = true;
+        debugTimes(3);
+    }
+    else if(result == BLEMate2::SUCCESS) debugTimes(2);
+    else if(result == BLEMate2::TIMEOUT_ERROR) debugTimes(1);
+    connectedBLE = false;
 }
 
 void debugTimes(int times){
