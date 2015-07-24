@@ -41,7 +41,7 @@ boolean longClick = false;
 BLEMate2 blemate(&Serial);
 boolean connectedBLE = false;
 
-boolean debug = true;
+boolean debug = false;
 
 // Program Config:
 // All pin Inputs for detecting digitalChanges.
@@ -94,12 +94,12 @@ void loop() {
         // CONTROL RECOGNIZE AREA
         if(isTimeToRecognizePast()){
           sendCommand();
-            
+
           if(gestureAdvertise()){
               advertiseBLEtoPair();
               debugTimes(5);
           }
-          
+
             checkConnectedBLE();
             resetRecognition();
             // The command to send must be:
