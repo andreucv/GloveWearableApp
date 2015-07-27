@@ -1,14 +1,14 @@
 * Puntos marcados con * son posibles puntos de apéndices.
 
-0. Tabla de contenidos
-
-0. Agradecimientos
-
-0. Resumen
+- - Agradecimientos
+- - Tabla de contenidos
+- - Resumen
 
 0. Introducción
-
-0. Requisitos del Proyecto
+    0.0 Contexto
+    0.1 Objetivos
+    0.2 Requisitos del Proyecto
+    0.3 Fases del desarrollo o Planificación y metodologia
 
 1. Capítulo 1 -- Hardware
     *1.1 Explicación / Introducción Arduino
@@ -36,6 +36,6 @@
 
 6. Capítulo 6 -- Utilidad y/o Finalidad del TFG
 
-7. Capítulo 7 -- Conclusiones
+7. Capítulo 7 -- Conclusiones i trabajo futuro
 
 8. Apéndices y referencias bibliográficas
