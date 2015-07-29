@@ -30,7 +30,7 @@ boolean recognizing = false;
 boolean firstTime = true;
 
 int gestureArray[MAXGESTURES];
-int pairingGesture[MAXGESTURES];
+int advertiseGesture[MAXGESTURES];
 int compareGesture[] = {212, 100, 212};
 int indexArray = 0;
 
@@ -324,10 +324,10 @@ void startAdvertise(boolean fast, int time){
 
 bool gestureAdvertise(){
     for(int i = 0; i < sizeof(compareGesture/(sizeof(int))); i++){
-        pairingGesture[i] = compareGesture[i];
+        advertiseGesture[i] = compareGesture[i];
     }
     for(int i = 0; i < MAXGESTURES; i++){
-        if(pairingGesture[i] != gestureArray[i]){
+        if(advertiseGesture[i] != gestureArray[i]){
             return false;
         }
     }
