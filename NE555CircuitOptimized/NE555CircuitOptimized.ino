@@ -2,7 +2,7 @@
 
 // Constant que guardarem
 #define MAXFINGERS          4
-#define MAXGESTURES         6
+#define MAXGESTURES         20
 #define THRESHOLD           575
 #define DELAYS              15
 #define DEBUGDELAYS         3
@@ -294,7 +294,7 @@ void configureBLE(boolean advertise){
     //  want to tweak before we reset the device.
 
     // The CCON parameter will enable advertising immediately after a disconnect.
-    blemate.stdSetParam("CCON", "OFF");
+    blemate.stdSetParam("CCON", "ON");
     // The ADVP parameter controls the advertising rate. Can be FAST or SLOW...
     blemate.stdSetParam("ADVP", "FAST");
     // The ADVT parameter controls the timeout before advertising stops. Can be
@@ -327,6 +327,7 @@ bool gestureAdvertise(){
             return false;
         }
     }
+    debugTimes(5);
     return true;
 }
 
@@ -346,10 +347,7 @@ void checkConnectedBLE(){
     BLEMate2::opResult result = blemate.isConnected();
     if(result == BLEMate2::CONNECTED){
         connectedBLE = true;
-        debugTimes(3);
     }
-    else if(result == BLEMate2::SUCCESS) debugTimes(2);
-    else if(result == BLEMate2::TIMEOUT_ERROR) debugTimes(1);
     connectedBLE = false;
 }
 
