@@ -12,7 +12,7 @@
 
 1. Capítulo 1 -- Hardware
     *1.1 Explicación / Introducción Arduino
-        *1.1.1 Arduino Lilypad
+        *1.1.1 Arduino Lilypad y Simple Snap
     *1.2 Explicación / Introducción Sparkfun BLE Mate 2
     1.3 Intentos de circuitería -> Timer NE555
     1.4 Solución Final
@@ -30,7 +30,7 @@
 
 4. Capítulo 4 -- Servicio Android
     4.1 Arquitectura de la Aplicación
-    4.2 Servicios Android -> Herencia de BluetoothLeService
+    4.2 Servicios Android -> Usando MelodySmartService from BlueCreation
 
 5. Capitulo 5 -- Resultados y discusión
 

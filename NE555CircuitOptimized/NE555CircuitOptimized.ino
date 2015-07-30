@@ -3,8 +3,8 @@
 // Constant que guardarem
 #define MAXFINGERS          4
 #define MAXGESTURES         20
-#define THRESHOLD           575
-#define DELAYS              15
+#define THRESHOLD           700
+#define DELAYS              8
 #define DEBUGDELAYS         3
 #define CYCLESCLICKLOW      2
 #define CYCLESCLICKHIGH     40
@@ -95,11 +95,6 @@ void loop() {
         // CONTROL RECOGNIZE AREA
         if(isTimeToRecognizePast()){
           sendCommand();
-
-          if(gestureAdvertise()){
-              advertiseBLEtoPair();
-              debugTimes(5);
-          }
 
             checkConnectedBLE();
             resetRecognition();
@@ -210,18 +205,22 @@ void sendCommand(){
     //       Serial.print(gestureArray[i]); Serial.print(" ");
     //   }
     //   Serial.println(" ");
+      String command = "";
+      int i = 0;
+      for(i = 0; i < MAXGESTURES; i++){
+          if(gestureArray[i] == 0 && gestureArray[i+1] == 0){
+              command += "e";
+              break;
+          }
+          else command += (String(gestureArray[i], DEC) + " ");
+      }
+      if(!command.endsWith("e")) command += "e";
+      blemate.sendData(command);
+
       digitalWrite(13, HIGH);
       delay(1000);
       digitalWrite(13, LOW);
       delay(1000);
-
-      String command = "";
-      int i = 0;
-      for(i = 0; i < MAXGESTURES; i++){
-          command += (String(gestureArray[i], DEC) + " ");
-      }
-      command += "e";
-      blemate.sendData(command);
   }
   else{
       Serial.println("NOT Sending ");
