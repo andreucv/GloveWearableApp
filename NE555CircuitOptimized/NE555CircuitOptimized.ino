@@ -220,6 +220,7 @@ void sendCommand(){
       for(i = 0; i < MAXGESTURES; i++){
           command += (String(gestureArray[i], DEC) + " ");
       }
+      command += "e";
       blemate.sendData(command);
   }
   else{
@@ -295,7 +296,8 @@ void configureBLE(boolean advertise){
     //  want to tweak before we reset the device.
 
     // The CCON parameter will enable advertising immediately after a disconnect.
-    blemate.stdSetParam("CCON", "ON");
+    // And we don't want that.
+    blemate.stdSetParam("CCON", "OFF");
     // The ADVP parameter controls the advertising rate. Can be FAST or SLOW...
     blemate.stdSetParam("ADVP", "FAST");
     // The ADVT parameter controls the timeout before advertising stops. Can be
@@ -323,7 +325,7 @@ void startAdvertise(boolean fast, int time){
 }
 
 bool gestureAdvertise(){
-    for(int i = 0; i < sizeof(compareGesture/(sizeof(int))); i++){
+    for(int i = 0; i < sizeof(compareGesture)/(sizeof(int)); i++){
         advertiseGesture[i] = compareGesture[i];
     }
     for(int i = 0; i < MAXGESTURES; i++){
