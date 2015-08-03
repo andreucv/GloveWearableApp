@@ -296,7 +296,7 @@ void configureBLE(boolean advertise){
 
     // The CCON parameter will enable advertising immediately after a disconnect.
     // And we don't want that.
-    blemate.stdSetParam("CCON", "OFF");
+    blemate.stdSetParam("CCON", "ON");
     // The ADVP parameter controls the advertising rate. Can be FAST or SLOW...
     blemate.stdSetParam("ADVP", "FAST");
     // The ADVT parameter controls the timeout before advertising stops. Can be
