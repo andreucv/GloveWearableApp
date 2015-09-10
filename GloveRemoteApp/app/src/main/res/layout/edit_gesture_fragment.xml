@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center">
+
+    <RelativeLayout
+        android:id="@+id/gesture_before"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primaryColor"
+        android:elevation="@dimen/cardview_default_elevation">
+
+        <TextView
+            android:id="@+id/gesture_title_before"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:backgroundTint="@color/abc_primary_text_disable_only_material_dark"
+            android:padding="@dimen/activity_vertical_margin"
+            android:text="@string/no_action"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/category_actions_category_before"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:backgroundTint="@color/abc_primary_text_disable_only_material_dark"
+            android:padding="@dimen/activity_vertical_margin"
+            android:spinnerMode="dropdown"
+            android:text="@string/no_action"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gesture_before"
+        android:background="@color/background"
+        android:elevation="@dimen/cardview_default_elevation"
+        android:padding="@dimen/abc_action_bar_icon_vertical_padding_material">
+
+        <RelativeLayout
+            android:id="@+id/gesture_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/abc_action_bar_icon_vertical_padding_material">
+
+            <EditText
+                android:id="@+id/gesture_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerHorizontal="true"
+                android:inputType="text"
+                android:padding="10dp" />
+
+            <Button
+                android:id="@+id/record_gesture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="Rec" />
+        </RelativeLayout>
+
+        <Spinner
+            android:id="@+id/actions_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/gesture_info"
+            android:backgroundTint="@color/accentColor"
+            android:padding="10dp"
+            android:spinnerMode="dropdown" />
+
+        <Spinner
+            android:id="@+id/contacts_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/actions_spinner"
+            android:padding="10dp"
+            android:spinnerMode="dropdown" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/contacts_spinner"
+            android:layout_centerHorizontal="true"
+            android:elevation="@dimen/cardview_default_elevation"
+            android:orientation="horizontal"
+            android:padding="@dimen/abc_action_bar_icon_vertical_padding_material">
+
+            <Button
+                android:id="@+id/accept_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/accept_button" />
+
+            <Button
+                android:id="@+id/cancel_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cancel_button" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</RelativeLayout>

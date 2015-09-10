@@ -1,0 +1,18 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppCompatTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+
+
+        <style name="CustomDialogTheme"
+            parent="Base.Theme.AppCompat.CompactMenu">
+            <item
+                name="android:windowBackground">@android:color/transparent</item>
+            <item name="android:windowIsFloating">true</item>
+            <item
+                name="android:windowNoTitle">true</item>
+        </style>
+
+</resources>

@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">TFG7</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="title_activity_pairing">Pairing</string>
+    <string name="title_activity_edit_gesture">Edit Gesture</string>
+
+    <string name="search_glove">Search for Glove</string>
+
+    <string name="unknown_device">Unknown Device</string>
+
+    <string name="swipe_to_refresh_scanning">Swipe down to refresh scanning</string>
+
+    <string name="accept_button">Accept</string>
+    <string name="cancel_button">Cancel</string>
+
+    <string name="no_action">No Action</string>
+    <string name="gesture_before">Gesture Before</string>
+    <string name="already_connected">You are already connected to Glove</string>
+    <string name="not_connected_yet">You are not connected to the Glove</string>
+    <string name="go_pairing">Go pairing your Glove</string>
+    <string name="disconnect_and_search_for_another">Search another</string>
+    <string name="go_pairing_menu">Pair</string>
+</resources>
