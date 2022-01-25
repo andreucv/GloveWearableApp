@@ -1,4 +1,4 @@
-# TFG
+# GloveWearableApp
 The private repo of my Final Grade Project<br />
 The project consists in a wearable device (a Glove) that has some electronics installed on it: contacts in every finger tip, current regulators, an Adafruit Flora Arduino Board with BLE antenna, and a Lithium battery.<br />
 
